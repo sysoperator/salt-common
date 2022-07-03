@@ -1,6 +1,9 @@
 {%- set osfullname = salt['grains.get']('osfullname')|lower -%}
 {%- set oscodename = salt['grains.get']('oscodename') -%}
 
-{%- set node_tags = salt['grains.get']('tags', []) -%}
+{%- set node_tags = salt['grains.get']('tags', {}) -%}
 {%- set node_roles = salt['grains.get']('roles', []) -%}
-{%- set node_osarch = salt['grains.get']('osarch') -%}
+
+{%- set node_kernel = salt['grains.get']('kernel')|lower -%}
+{%- set node_cpuarch = salt['grains.get']('cpuarch') -%}
+{%- set node_osarch = salt['grains.get']('osarch')|replace('x86_64', 'amd64') -%}
