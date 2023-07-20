@@ -4,9 +4,10 @@
 {%- set node_tags = salt['grains.get']('tags', {}) -%}
 {%- set node_roles = salt['grains.get']('roles', []) -%}
 
-{%- set node_kernel = salt['grains.get']('kernel')|lower -%}
+{%- set node_kernel = salt['grains.get']('kernel') -%}
+{%- set node_kernel_lower = node_kernel|lower -%}
 {%- set node_cpuarch = salt['grains.get']('cpuarch') -%}
-{%- set node_osarch = salt['grains.get']('osarch')|replace('x86_64', 'amd64') -%}
+{%- set node_osarch = salt['grains.get']('osarch')|replace('x86_64', 'amd64') if salt['grains.get']('os_family') == 'RedHat' else salt['grains.get']('osarch') -%}
 
 {%- set node_fqdn = salt['grains.get']('fqdn') -%}
 {%- set node_host = salt['grains.get']('host') -%}
@@ -16,3 +17,5 @@
   {%- set _ip4_addr = salt['grains.get']('fqdn_ip4')[1] -%}
 {%- endif -%}
 {%- set node_ip4 = _ip4_addr -%}
+
+{%- set nobody_groupname = 'nobody' if salt['grains.get']('os_family') == 'RedHat' else 'nogroup' -%}
