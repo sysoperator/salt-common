@@ -2,7 +2,8 @@
 {%- set os_family = salt['grains.get']('os_family')|lower -%}
 {%- set osfullname = salt['grains.get']('osfullname') -%}
 {%- set oscodename = salt['grains.get']('oscodename') -%}
-{%- set osrelease = salt['grains.get']('osrelease') -%}
+{%- set osrelease = salt['grains.get']('osrelease')|string -%}
+{%- set osmajorrelease = salt['grains.get']('osmajorrelease')|string -%}
 
 {%- set node_tags = salt['grains.get']('tags', {}) -%}
 {%- set node_roles = salt['grains.get']('roles', []) -%}
