@@ -23,3 +23,10 @@
 {%- set node_ip4 = _ip4_addr -%}
 
 {%- set nobody_groupname = 'nobody' if salt['grains.get']('os_family') == 'RedHat' else 'nogroup' -%}
+
+{%- if os_family == 'debian' -%}
+  {%- set aptkey_deprecated = false -%}
+  {%- if (os == 'ubuntu' and osmajorrelease|int >= 22) or (os == 'debian' and osmajorrelease|int >= 11) -%}
+    {%- set aptkey_deprecated = true -%}
+  {%- endif -%}
+{%- endif -%}
