@@ -11,10 +11,11 @@
 {%- set node_kernel = salt['grains.get']('kernel') -%}
 {%- set node_kernel_lower = node_kernel|lower -%}
 {%- set node_cpuarch = salt['grains.get']('cpuarch') -%}
-{%- set node_osarch = salt['grains.get']('osarch')|replace('x86_64', 'amd64') if salt['grains.get']('os_family') == 'RedHat' else salt['grains.get']('osarch') -%}
+{%- set node_osarch = salt['grains.get']('osarch')|replace('x86_64', 'amd64') if os_family == 'redhat' else salt['grains.get']('osarch') -%}
 
 {%- set node_fqdn = salt['grains.get']('fqdn') -%}
 {%- set node_host = salt['grains.get']('host') -%}
+{%- set node_domain = salt['grains.get']('dns:domain') -%}
 
 {%- set _ip4_addr = salt['grains.get']('fqdn_ip4')[0] -%}
 {%- if _ip4_addr.startswith('127.') -%}
@@ -22,7 +23,7 @@
 {%- endif -%}
 {%- set node_ip4 = _ip4_addr -%}
 
-{%- set nobody_groupname = 'nobody' if salt['grains.get']('os_family') == 'RedHat' else 'nogroup' -%}
+{%- set nobody_groupname = 'nobody' if os_family == 'redhat' else 'nogroup' -%}
 
 {%- if os_family == 'debian' -%}
   {%- set aptkey_deprecated = false -%}
