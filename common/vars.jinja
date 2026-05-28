@@ -13,9 +13,9 @@
 {%- set node_cpuarch = salt['grains.get']('cpuarch') -%}
 {%- set node_osarch = salt['grains.get']('osarch')|replace('x86_64', 'amd64') if os_family == 'redhat' else salt['grains.get']('osarch') -%}
 
-{%- set node_fqdn = salt['grains.get']('fqdn') -%}
-{%- set node_host = salt['grains.get']('host') -%}
-{%- set node_domain = salt['grains.get']('dns:domain') -%}
+{%- set node_fqdn = salt['grains.get']('fqdn')|lower -%}
+{%- set node_host = salt['grains.get']('host')|lower -%}
+{%- set node_domain = salt['grains.get']('dns:domain')|lower -%}
 
 {%- set _ip4_addr = salt['grains.get']('fqdn_ip4')[0] -%}
 {%- if _ip4_addr.startswith('127.') -%}
